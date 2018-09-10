@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div id="app">
+            <h1>父组件的值是: {{num1}}</h1>
+        <button @click="parentAdd">++++</button>
+        <my-component
+                v-bind:my-num="num1"
+                @add-parent="addSelf"
+                 @reduce-parent="reduceSelf"
+        ></my-component>
+        <my-component v-model="num1"></my-component>
+        <my-component></my-component>
+        <my-component></my-component>
+    </div>
+        
+</body>
+<script src="./vue.js"></script>
+<script>
+        // v-model做了那两件事？
+        // 1. 通过v-bind:value 绑定了一个value
+        // 2. 通过v-on:input 绑定了一个事件处理函数 （newValue） => value = newValue
+        const myComponent = {
+            props: {
+                'my-num': {
+                    type: Number
+                },
+                value: {
+                    type: Number
+                }
+            },
+            template: `
+                <div>
+                    <button @click="reduce">-</button>
+                    <strong>{{myNum}}</strong>
+                    <button @click="add">+</button>
+                </div>
+            `,
+            data () {
+                return {
+                    num: this.myNum
+                    // num: this.value
+                }
+            },
+            methods: {
+                reduce() {
+                    this.$emit('reduce-parent')
+                   
+                },
+                add() {
+                    this.$emit('add-parent')
+                }
+            },
+            watch: {
+                myNum(val) {
+                    this.num = val
+                },
+                value(val) {
+                    this.num = val
+                }
+            }
+        }
+        const app = new Vue({
+            components: {
+                myComponent
+            },
+            el: '#app',
+            data: {
+                text: 'hello World!',
+                num1: 10
+            },
+            methods: {
+                parentAdd() {
+                    this.num1++
+                },
+                addSelf() {
+                    this.num1++
+                },
+                reduceSelf() {
+                    this.num1--
+                },
+                changeValue(value) {
+                    this.num1 = value
+                }
+            }
+        })
+    </script>
+</html>
