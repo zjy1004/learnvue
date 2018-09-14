@@ -70,6 +70,10 @@ const router = new Router({
             title: '登陆'
           }
         },
+        {
+          path: 'vuexDemon',
+          component: () => import('../components/vuexDemon')
+        }
       ]
     }
   ]

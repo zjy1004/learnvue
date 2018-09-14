@@ -9,10 +9,14 @@
 
 <body>
     <div id="app">
-        用户名
-        <input type="text" v-model="username">
-        <br> 密码
-        <input type="text" v-model="password">
+
+        <label>
+            用户名<input type="text" v-model="username">
+        </label>
+        <br>
+        <label>
+            密码<input type="text" v-model="password">
+        </label>
         <br>
         <button v-on:click="showForm">
             弹出用户名密码
