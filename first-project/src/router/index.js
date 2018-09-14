@@ -40,6 +40,37 @@ const router = new Router({
       meta: {
         title: '登陆'
       }
+    },
+    {
+      path: '/main',
+      component: () => import('../view/Layout/index'),
+      redirect: '/main/home',
+      children: [
+        {
+          path: 'home',
+          name: 'home1',
+          component: home,
+          meta: {
+            title: '首页'
+          }
+        },
+        {
+          path: 'about/:id',
+          name: 'about1',
+          component:() => import('../components/about'),
+          meta: {
+            title: '详情'
+          }
+        },
+        {
+          path: 'login',
+          name: 'login1',
+          component: () => import('../components/login'),
+          meta: {
+            title: '登陆'
+          }
+        },
+      ]
     }
   ]
 })
